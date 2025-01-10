@@ -30,6 +30,13 @@
 						"type": "text/javascript",
 						"packages": {}
 					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"packages": {},
+						"type": "text/javascript"
+					}
 				}
 			],
 			"request": {
@@ -40,13 +47,13 @@
 					"formdata": [
 						{
 							"key": "username",
-							"value": "Demo123",
+							"value": "admin123",
 							"description": "Get it from OpenCart",
 							"type": "text"
 						},
 						{
 							"key": "key",
-							"value": "GIKOQMcuJksUMYmjtSaxdWGeGNSZCX2XJcxPnOe7RnXJG42LjPT0Ao8W1zeoB6fnDTeoEaldvIVSJXfsFR7OJ2OYnanPijbgRqwpvQpgqZTAVYKvyzcziYlG4Vo4ME2IGosj2IVgrZYbvvseKqhoZTsJzsj5jNe3ZihdcEyJJPpwA8nRrCHzcNSlLMqR7I80DqPrUUOibVzDwWacxPSp4Sie0tm2pAx3JMiLsO8RkkBPxITJOghFL4viGYYzq3m2",
+							"value": "hdb2JCNzZfK46wPbvJHYjXPcn48RJzecEFi8g4B5WWWdaae0BgMPeqwVJPZ70ydEy2GaSvZUYJBjUv6hirfOaPJlGIoMOhGPUrDDG2Fat5wdLR1EbSHihhI2bue32Pw6AT6NclWgK30jiVmTwPlBMWvkPGgL1q3R4mgfE3Sg4nKYeFkXdoLiXkO7018uqRCW7q87aYsNcwiBtFyh854cjn6vklUIq3GRswtZ86f3fNbCy3IUGSAFy6sYcSpgUntV",
 							"description": "Get it from OpenCart",
 							"type": "text"
 						}
@@ -80,7 +87,33 @@
 							"pm.test(\"checking success msg in response\",function(){",
 							"    var jsonData = pm.response.json();",
 							"    pm.expect(jsonData.success).to.eql(\"Success: You have modified your shopping cart!\");",
-							"})"
+							"})",
+							"var template = `",
+							"<style type=\"text/css\">",
+							"    .tftable {font-size:14px;color:#333333;width:100%;border-width: 1px;border-color: #87ceeb;border-collapse: collapse;}",
+							"    .tftable th {font-size:18px;background-color:#87ceeb;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;text-align:left;}",
+							"    .tftable tr {background-color:#ffffff;}",
+							"    .tftable td {font-size:14px;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;}",
+							"    .tftable tr:hover {background-color:#e0ffff;}",
+							"</style>",
+							"",
+							"<table class=\"tftable\" border=\"1\">",
+							"    <tr>",
+							"        <th>Error</th>",
+							"        <th>Warning</th>",
+							"    </tr>",
+							"    <tr>",
+							"        <td>{{response.error}}</td>",
+							"        <td>{{response.error.warning}}</td>",
+							"    </tr>",
+							"</table>",
+							"`;",
+							"",
+							"function constructVisualizerPayload() {",
+							"    return {response: pm.response.json()}",
+							"}",
+							"",
+							"pm.visualizer.set(template, constructVisualizerPayload());"
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -103,13 +136,13 @@
 					"type": "apikey",
 					"apikey": [
 						{
-							"key": "in",
-							"value": "query",
+							"key": "value",
+							"value": "{{api_token_val}}",
 							"type": "string"
 						},
 						{
-							"key": "value",
-							"value": "{{api_token_val}}",
+							"key": "in",
+							"value": "query",
 							"type": "string"
 						},
 						{
@@ -451,7 +484,7 @@
 	"variable": [
 		{
 			"key": "IP",
-			"value": "192.168.0.110",
+			"value": "192.168.0.107",
 			"type": "string"
 		},
 		{
